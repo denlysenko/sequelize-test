@@ -1,18 +1,22 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('Team', 
+	var Team = sequelize.define('Team', 
 		{
 			teamId: {
 				type: DataTypes.STRING(255),
 				primaryKey: true
 			},
-			projectId: {
-				type: DataTypes.STRING(255)
-			},
 			name: {
 				type: DataTypes.STRING(255),
 				allowNull: false
+			}
+		},
+		{
+			classMethods: {
+				associate: function(models) {
+					Team.belongsTo(models.Project, {foreignKey: 'projectId'});
+				}
 			}
 		},
 		{
@@ -21,4 +25,5 @@ module.exports = function(sequelize, DataTypes) {
 			tableName: 'teams'
 		}
 	);
+	return Team;
 };

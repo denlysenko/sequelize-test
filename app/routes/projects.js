@@ -10,7 +10,7 @@ router.get('/', projects.get);
 
 /* Create project */
 router.post('/', projects.create);
-//router.put('/:userId', users.update);
-//router.delete('/:userId', users.destroy);
+router.put('/:projectId', projects.update);
+router.delete('/:projectId', projects.destroy);
 
 module.exports = router;

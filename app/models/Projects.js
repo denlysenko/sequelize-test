@@ -7,9 +7,6 @@ module.exports = function(sequelize, DataTypes) {
 				type: DataTypes.STRING(255),
 				primaryKey: true
 			},
-			creatorId: {
-				type: DataTypes.STRING(255)
-			},
 			name: {
 				type: DataTypes.STRING(255),
 				allowNull: false
@@ -18,7 +15,8 @@ module.exports = function(sequelize, DataTypes) {
 		{
       classMethods: {
         associate: function(models) {
-          Project.belongsTo(models.User, {as: 'creator'});
+        	Project.belongsTo(models.User, {foreignKey: 'userId'})
+          Project.belongsTo(models.Tag);
         }
       }
     },

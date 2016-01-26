@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('User', 
+	var User = sequelize.define('User', 
 		{
 			userId: {
 				type: DataTypes.STRING(255),
@@ -25,8 +25,17 @@ module.exports = function(sequelize, DataTypes) {
 			}
 		},
 		{
+			classMethods: {
+				associate: function(models) {
+					User.belongsToMany(models.Tag, {through: 'UserTags'});
+				}
+			}
+		},
+		{
 			timestamps: true,
 			underscored: true,
 			tableName: 'users'
 	});
+
+	return User;
 };
