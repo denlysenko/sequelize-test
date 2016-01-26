@@ -10,19 +10,15 @@ module.exports = function(sequelize, DataTypes) {
 			projectId: {
 				type: DataTypes.STRING(255)
 			},
-			userId: {
-				type: DataTypes.STRING(255)
-			},
 			name: {
 				type: DataTypes.STRING(255),
 				allowNull: false
 			}
 		},
-		{
+    {
       classMethods: {
         associate: function(models) {
-          models.Project.belongsToMany(Tag, {through: 'ProjectTags'});
-          Tag.belongsToMany(models.User, {through: 'UserTags'});
+          Tag.belongsTo(models.User, {foreignKey: 'userId'});
         }
       }
     },

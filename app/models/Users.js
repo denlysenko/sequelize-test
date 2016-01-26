@@ -27,7 +27,7 @@ module.exports = function(sequelize, DataTypes) {
 		{
 			classMethods: {
 				associate: function(models) {
-					User.belongsToMany(models.Tag, {through: 'UserTags'});
+					User.belongsToMany(models.Team, {through:'TeamMembers', foreignKey: 'memberId'});
 				}
 			}
 		},
