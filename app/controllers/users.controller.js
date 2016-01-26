@@ -6,7 +6,7 @@ var models = require('../models'),
     _ = require('lodash');
 
 module.exports = {
-	get: function(req, res) {
+	getAll: function(req, res) {
 		models.User.findAll()
 			.then(function(users) {
 				res.json(users);
@@ -16,6 +16,17 @@ module.exports = {
 				res.status(400).send({message: err.message});
 			});
 	},
+  getById: function(req, res, next) {
+    models.User.findById(req.params.userId)
+        .then(function(user) {
+          if(!user) return res.status(404).send({message: 'User Not Found'});
+          res.json(user);
+        })
+        .catch(function(err) {
+          console.log(err);
+          next(err);
+        });
+  },
 	create: function(req, res, next) {
 		var id = crypto.randomBytes(20).toString('hex');
 		models.User.create({

@@ -6,7 +6,8 @@ var express = require('express'),
 
 
 /* GET users listing. */
-router.get('/', users.get);
+router.get('/', users.getAll);
+router.get('/:userId', users.getById);
 
 /* Create user */
 router.post('/', users.create);

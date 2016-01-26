@@ -6,14 +6,29 @@ var models = require('../models'),
     _ = require('lodash');
 
 module.exports = {
-  get: function(req, res) {
-    models.Project.findAll()
+  getAll: function(req, res) {
+    models.Project.findAll({
+      include: [
+        {model: models.User}
+      ]
+    })
         .then(function(projects) {
           res.json(projects);
         })
         .catch(function(err) {
           console.log(err);
           res.status(400).send({message: err.message});
+        });
+  },
+  getById: function(req, res, next) {
+    models.Project.find({where: {projectId: req.params.projectId}, include: [{model: models.User}]})
+        .then(function(project) {
+          if(!project) return res.status(404).send({message: 'Project Not found'});
+          res.json(project);
+        })
+        .catch(function(err) {
+          console.log(err);
+          next(err);
         });
   },
   create: function(req, res, next) {

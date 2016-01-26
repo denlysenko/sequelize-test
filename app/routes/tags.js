@@ -5,12 +5,16 @@ var express = require('express'),
     tags = require('../controllers/tags.controller');
 
 
-/* GET projects listing. */
-router.get('/', tags.get);
+/* GET tags listing. */
+router.get('/', tags.getAll);
+router.get('/:tagId', tags.getById);
 
 /* Create project */
 router.post('/', tags.create);
-// router.put('/:projectId', projects.update);
-// router.delete('/:projectId', projects.destroy);
+router.put('/:tagId', tags.update);
+router.delete('/:tagId', tags.destroy);
 
+/* Add/remove project to tag */
+router.post('/add_project/:tagId', tags.addProject);
+router.delete('/remove_project/:tagId', tags.removeProject);
 module.exports = router;

@@ -6,7 +6,8 @@ var express = require('express'),
 
 
 /* GET projects listing. */
-router.get('/', projects.get);
+router.get('/', projects.getAll);
+router.get('/:projectId', projects.getById);
 
 /* Create project */
 router.post('/', projects.create);
